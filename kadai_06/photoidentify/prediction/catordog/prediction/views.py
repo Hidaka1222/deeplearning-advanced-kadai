@@ -31,10 +31,16 @@ def predict(request):
                 img = Image.open(img_file)
 
                 # Resize and preprocess the image
-                img = img.resize((224, 224))
+                img_file = form.cleaned_data['image']
+                img_file = BytesIO(img_file.read())
+                img = load_img(img_file, target_size=(224, 224))
                 img_array = img_to_array(img)
-                img_array = np.expand_dims(img_array, axis=0)
+                img_array = img_array.reshape((1, 224, 224, 3))
+
                 img_array = preprocess_input(img_array)
+
+                model_path = os.path.join(settings.BASE_DIR, 'prediction', 'models', 'vgg16.h5')
+                model = load_model(model_path)
 
                 # Make predictions
                 preds = model.predict(img_array)
