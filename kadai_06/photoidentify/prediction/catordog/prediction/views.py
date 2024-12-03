@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from .forms import ImageUploadForm
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img
 from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input, decode_predictions
 from tensorflow.keras.preprocessing.image import img_to_array
 from PIL import Image, UnidentifiedImageError
 import numpy as np
 import base64
+from io import BytesIO
+import os
 
 model = VGG16(weights='imagenet')
 
@@ -56,4 +60,3 @@ def predict(request):
 
     form = ImageUploadForm()
     return render(request, 'home.html', {'form': form})
-
