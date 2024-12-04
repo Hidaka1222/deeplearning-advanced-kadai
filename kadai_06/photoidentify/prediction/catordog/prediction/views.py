@@ -8,6 +8,12 @@ from PIL import Image, UnidentifiedImageError
 import numpy as np
 from io import BytesIO
 import os
+from django.shortcuts import render
+from .forms import ImageUploadForm
+from django.conf import settings
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import load_img
+from tensorflow.keras.preprocessing.image import img_to_array
 
 model = VGG16(weights='imagenet')
 

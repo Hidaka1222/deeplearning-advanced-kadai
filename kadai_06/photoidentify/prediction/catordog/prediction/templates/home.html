@@ -30,15 +30,6 @@
       </div>
   {% endif %}
 
-  {% if prediction %}
-    <ul>
-    {% for pred in prediction %}
-        <li>{{ pred.1 }}: {{ pred.2|floatformat:2 }}%</li>
-    {% endfor %}
-    </ul>
-  {% endif %}
-  </div>
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script>
         $(function() {
@@ -54,5 +45,16 @@
             });
         });
       </script>
+
+  {% if prediction %}
+    <ul>
+    {% for pred in prediction %}
+        <li>{{ pred.1 }}: {{ pred.2|floatformat:2 }}%</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </div>
+
+  
 </body>
 </html>
