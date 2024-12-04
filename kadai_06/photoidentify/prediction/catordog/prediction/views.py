@@ -38,10 +38,9 @@ def predict(request):
                 model_path = os.path.join(settings.BASE_DIR, 'prediction', 'models', 'vgg16.h5')
                 model = load_model(model_path)
 
-                # Make predictions
-                preds = model.predict(img_array)
-                top_pred = decode_predictions(preds, top=1)[0][0]
-                prediction = top_pred[1]  # Assuming you want the class name
+                prediction = decode_predictions(result)[0]
+                print(prediction)
+
 
             except UnidentifiedImageError:
                 prediction = "画像ファイルを識別できませんでした。形式を確認してください。"
