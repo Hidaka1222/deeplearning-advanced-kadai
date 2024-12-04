@@ -6,16 +6,10 @@ from tensorflow.keras.applications.vgg16 import VGG16, preprocess_input, decode_
 from tensorflow.keras.preprocessing.image import img_to_array
 from PIL import Image, UnidentifiedImageError
 import numpy as np
-import base64
 from io import BytesIO
 import os
 
 model = VGG16(weights='imagenet')
-
-def get_image_base64(img_file):
-    img_file.seek(0)
-    img_data = base64.b64encode(img_file.read()).decode('utf-8')
-    return f'data:image/jpeg;base64,{img_data}'
 
 def predict(request):
     prediction = None
@@ -24,15 +18,7 @@ def predict(request):
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
-            img_file = form.cleaned_data['image']
-            # Convert to BytesIO and reset file pointer
-            img_file.seek(0)
-            img_data = get_image_base64(img_file)
-            img_file.seek(0)
-
             try:
-                # Load the image
-                img = Image.open(img_file)
 
                 # Resize and preprocess the image
                 img_file = form.cleaned_data['image']
