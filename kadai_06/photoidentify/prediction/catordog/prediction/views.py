@@ -38,8 +38,10 @@ def predict(request):
                 model_path = os.path.join(settings.BASE_DIR, 'prediction', 'models', 'vgg16.h5')
                 model = load_model(model_path)
 
-                prediction = decode_predictions(result)[0]
+                preds = model.predict(img_array)
+                prediction = decode_predictions(preds)[0]
                 print(prediction)
+                img_data = request.POST.get('img_data')
 
 
             except UnidentifiedImageError:
